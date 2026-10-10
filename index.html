@@ -284,7 +284,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #D4AF37;outline-offset:3p
   </div>
 
   <!-- Горизонтальная лента: нативный свайп + snap. Карточки добавляются копированием <article class="reel"> -->
-  <div id="reels" class="mt-9 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-pl-5 px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>
+  <div id="reels" class="mt-9 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-pl-5 px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>:first-child]:ml-auto [&>:last-child]:mr-auto" style="-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain">
       <article class="reel relative shrink-0 snap-start w-[64%] max-w-[250px] aspect-[9/16] rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 shadow-[0_24px_50px_-24px_rgba(0,0,0,.9)]" data-poster="p1">
         <!-- Заставка: видна, пока видео не загрузилось -->
         <img data-img="p1" alt="Фейд и борода — TOP BARBER Margo" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover">

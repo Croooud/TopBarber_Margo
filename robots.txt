@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://croooud.github.io/TopBarber_Margo/sitemap.xml

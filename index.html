@@ -724,7 +724,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     });
     // тап по карточке = пауза / воспроизведение (жест пользователя разрешает запуск везде)
     c.addEventListener('click', () => {
-      if (v.dataset.ok === '0') return;
+      if (wrap._dragged || v.dataset.ok === '0') return;
       if (v.paused) { c.dataset.userPause = '0'; const p = v.play(); if (p && p.catch) p.catch(() => showBtn(true)); }
       else { c.dataset.userPause = '1'; v.pause(); showBtn(true); }
     });
@@ -749,6 +749,41 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   });
   const setActive = i => dots.forEach((d, k) => { d.classList.toggle('w-6', k === i); d.classList.toggle('bg-gold-400', k === i); d.classList.toggle('w-1.5', k !== i); d.classList.toggle('bg-zinc-700', k !== i); });
   setActive(0);
+
+  // --- управление с компьютера: стрелки, перетаскивание мышью, клавиши ---
+  const step = dir => { const w = cards[0].offsetWidth + 16; wrap.scrollBy({ left: dir * w, behavior: 'smooth' }); };
+  const arrow = (dir, label, d) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label', label);
+    b.className = 'hidden md:grid w-10 h-10 place-items-center rounded-full border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150';
+    b.innerHTML = '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>';
+    b.addEventListener('click', () => step(dir)); return b;
+  };
+  dotsBox.removeAttribute('aria-hidden'); dotsBox.classList.add('items-center');
+  dotsBox.prepend(arrow(-1, 'Назад', 'm15 18-6-6 6-6'));
+  dotsBox.append(arrow(1, 'Вперёд', 'm9 18 6-6-6-6'));
+  dotsBox.classList.replace('gap-2', 'gap-3');
+  wrap.tabIndex = 0; wrap.setAttribute('aria-label', 'Видео-лента');
+  wrap.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); step(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); } });
+  let sx = 0, sl = 0, down = false;
+  wrap.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = true; wrap._dragged = false; sx = e.clientX; sl = wrap.scrollLeft;
+  });
+  window.addEventListener('pointermove', e => {
+    if (!down) return; const dx = e.clientX - sx;
+    if (!wrap._dragged && Math.abs(dx) > 6) { wrap._dragged = true; wrap.style.scrollSnapType = 'none'; wrap.style.cursor = 'grabbing'; }
+    if (wrap._dragged) wrap.scrollLeft = sl - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!down) return; down = false;
+    if (wrap._dragged) {
+      let best = cards[0], bd = 1e9; cards.forEach(c => { const d = Math.abs(c.offsetLeft - 20 - wrap.scrollLeft); if (d < bd) { bd = d; best = c; } });
+      wrap.style.scrollSnapType = ''; wrap.style.cursor = ''; wrap.scrollTo({ left: best.offsetLeft - 20, behavior: 'smooth' });
+      setTimeout(() => { wrap._dragged = false; }, 60);
+    }
+  });
+  wrap.addEventListener('dragstart', e => e.preventDefault());
 
   // играем только видимое, соседние подгружаем заранее
   if (!('IntersectionObserver' in window)) { cards.forEach(c => { c.dataset.vis = '1'; tryPlay(c); }); return; }

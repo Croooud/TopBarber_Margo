@@ -685,30 +685,59 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   const cards = [...wrap.querySelectorAll('.reel')];
   const dotsBox = document.getElementById('reel-dots');
   const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const tryPlay = c => {
-    const v = c.querySelector('video');
-    if (!v || calm || c.dataset.vis !== '1' || v.dataset.ok !== '1') return;
-    const p = v.play(); if (p && p.catch) p.catch(() => {});
-  };
+  const hosted = /^https?:$/.test(location.protocol);   // на настоящем хостинге берём файлы ./assets/videos, иначе встроенные копии
   let VID = null;
+
+  // встроенная облегчённая копия: сначала blob:, при ошибке data:
+  function embedded(v, i, step) {
+    try {
+      VID = VID || JSON.parse(document.getElementById('vid-data').textContent);
+      const b64 = VID[i + 1]; if (!b64) return false;
+      if (step === 'blob') {
+        const bin = atob(b64), u = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) u[k] = bin.charCodeAt(k);
+        v.src = URL.createObjectURL(new Blob([u], { type: 'video/mp4' }));
+      } else v.src = 'data:video/mp4;base64,' + b64;
+      v.dataset.emb = step; v.load(); return true;
+    } catch (e) { return false; }
+  }
+
   cards.forEach((c, i) => {
     const v = c.querySelector('video'); if (!v) return;
+    v.muted = true; v.defaultMuted = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     if (window.IMG && IMG[c.dataset.poster]) v.poster = IMG[c.dataset.poster];
-    v.addEventListener('loadedmetadata', () => { v.dataset.ok = '1'; tryPlay(c); });   // файл существует
-    v.addEventListener('playing', () => v.classList.remove('opacity-0'));             // плавно показываем видео поверх заставки
-    v.addEventListener('error', () => {                                               // файла нет рядом с index.html
-      if (!v.dataset.fb) {                                                             // пробуем встроенную облегчённую копию
-        v.dataset.fb = '1';
-        try {
-          const b64 = (VID || (VID = JSON.parse(document.getElementById('vid-data').textContent)))[i + 1];
-          if (b64) { const bin = atob(b64), u = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) u[k] = bin.charCodeAt(k);
-            v.src = URL.createObjectURL(new Blob([u], { type: 'video/mp4' })); v.load(); return; }
-        } catch (e) {}
-      }
-      v.dataset.ok = '0';                                                              // иначе остаётся фото-заставка
+
+    // кнопка «играть»: показывается, если автозапуск запрещён (экономия энергии, встроенный просмотрщик)
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.setAttribute('aria-label', 'Воспроизвести');
+    btn.className = 'reel-play absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/55 border border-white/20 text-gold-300 grid place-items-center opacity-0 pointer-events-none transition-opacity duration-300';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" class="w-7 h-7 ml-0.5" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    c.appendChild(btn);
+    const showBtn = on => { btn.classList.toggle('opacity-0', !on); btn.classList.toggle('pointer-events-none', !on); };
+    c._showBtn = showBtn;
+
+    v.addEventListener('loadedmetadata', () => { v.dataset.ok = '1'; tryPlay(c); });
+    v.addEventListener('playing', () => { v.classList.remove('opacity-0'); showBtn(false); });
+    v.addEventListener('error', () => {
+      if (!hosted && v.dataset.emb === 'blob') { embedded(v, i, 'data') || (v.dataset.ok = '0'); return; }
+      if (hosted && !v.dataset.emb) { embedded(v, i, 'blob') || (v.dataset.ok = '0'); return; }
+      v.dataset.ok = '0';
     });
+    // тап по карточке = пауза / воспроизведение (жест пользователя разрешает запуск везде)
+    c.addEventListener('click', () => {
+      if (v.dataset.ok === '0') return;
+      if (v.paused) { c.dataset.userPause = '0'; const p = v.play(); if (p && p.catch) p.catch(() => showBtn(true)); }
+      else { c.dataset.userPause = '1'; v.pause(); showBtn(true); }
+    });
+    if (!hosted) embedded(v, i, 'blob');
   });
+
+  function tryPlay(c) {
+    const v = c.querySelector('video');
+    if (!v || calm || c.dataset.vis !== '1' || c.dataset.userPause === '1') return;
+    if (v.dataset.ok !== '1' && v.readyState < 1) return;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => c._showBtn && c._showBtn(true));
+  }
 
   // точки-индикаторы
   const dots = cards.map((c, i) => {
@@ -721,15 +750,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   const setActive = i => dots.forEach((d, k) => { d.classList.toggle('w-6', k === i); d.classList.toggle('bg-gold-400', k === i); d.classList.toggle('w-1.5', k !== i); d.classList.toggle('bg-zinc-700', k !== i); });
   setActive(0);
 
-  // играем только видимое и подгружаем соседние (экономия трафика, батареи и FPS на iOS)
-  if (!('IntersectionObserver' in window)) { cards.forEach(c => { c.dataset.vis = '1'; }); return; }
+  // играем только видимое, соседние подгружаем заранее
+  if (!('IntersectionObserver' in window)) { cards.forEach(c => { c.dataset.vis = '1'; tryPlay(c); }); return; }
   const near = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { const v = e.target.querySelector('video'); if (v && v.preload !== 'auto') v.preload = 'auto'; near.unobserve(e.target); }
   }), { root: wrap, rootMargin: '0px 120% 0px 120%' });
   const io = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target.querySelector('video');
     e.target.dataset.vis = e.isIntersecting ? '1' : '0';
-    if (e.isIntersecting) { setActive(cards.indexOf(e.target)); tryPlay(e.target); }
+    if (e.isIntersecting) { setActive(cards.indexOf(e.target)); e.target.dataset.userPause = '0'; tryPlay(e.target); }
     else if (v) { v.pause(); }
   }), { root: wrap, threshold: 0.6 });
   cards.forEach(c => { io.observe(c); near.observe(c); });

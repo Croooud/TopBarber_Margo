@@ -70,7 +70,7 @@
   },
   "geo": { "@type": "GeoCoordinates", "latitude": 44.930459, "longitude": 37.983498 },
   "hasMap": "https://yandex.ru/maps/org/barber_teremyazeva_m_s_/27168746604/?ll=37.983498%2C44.930459&z=15.57",
-  "sameAs": ["https://t.me/miss0771", "https://www.instagram.com/spislaadko__", "https://dikidi.net/2121136?p=0.pi"]
+  "sameAs": ["https://t.me/miss0771", "https://dikidi.net/2121136?p=0.pi"]
 }
 </script>
 
@@ -102,7 +102,6 @@ tailwind.config = {
    'crown':'<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/>',
    'calendar-check':'<path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
    'clock':'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
-   'instagram':'<rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/>',
    'map-pin':'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
    'navigation':'<path d="M3 11 22 2l-9 19-2-8-8-2z"/>',
    'phone':'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
@@ -170,7 +169,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #D4AF37;outline-offset:3p
     <!-- Соцсети и звонок в шапке -->
     <div class="flex items-center gap-1.5">
       <a href="https://t.me/miss0771" target="_blank" rel="noopener" aria-label="Telegram" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="send" class="w-4 h-4"></i></a>
-      <a href="https://www.instagram.com/spislaadko__" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="instagram" class="w-4 h-4"></i></a>
       <a href="tel:+79183942877" aria-label="Позвонить" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="phone" class="w-4 h-4"></i></a>
     </div>
   </div>
@@ -582,7 +580,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #D4AF37;outline-offset:3p
       <div class="flex gap-4"><i data-lucide="map-pin" class="w-5 h-5 text-gold-400 shrink-0 mt-0.5"></i><div><div class="text-white font-semibold">г. Крымск, ул. Пролетарская, д. 33</div><div class="text-xs text-zinc-500 mt-1">Записывайся заранее — свободные окна долго не держатся</div></div></div>
       <div class="flex gap-4"><i data-lucide="phone" class="w-5 h-5 text-gold-400 shrink-0"></i><a href="tel:+79183942877" class="text-white font-semibold">+7 (918) 394-28-77</a></div>
       <div class="flex gap-4"><i data-lucide="send" class="w-5 h-5 text-gold-400 shrink-0"></i><a href="https://t.me/miss0771" target="_blank" rel="noopener" class="text-white font-semibold">Telegram · @miss0771</a></div>
-      <div class="flex gap-4"><i data-lucide="instagram" class="w-5 h-5 text-gold-400 shrink-0"></i><a href="https://www.instagram.com/spislaadko__" target="_blank" rel="noopener" class="text-white font-semibold">@spislaadko__</a></div>
 
       <div class="grid grid-cols-2 gap-3 pt-1">
         <a href="tel:+79183942877" class="relative overflow-hidden flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-400 to-gold-300 text-black font-display font-bold uppercase tracking-widest text-sm py-4 active:scale-95 transition-transform">
@@ -599,14 +596,25 @@ a:focus-visible,button:focus-visible{outline:2px solid #D4AF37;outline-offset:3p
 </section>
 </main>
 
-<footer class="pb-6 pt-8 border-t border-zinc-900 text-center">
+<footer class="pb-28 pt-8 border-t border-zinc-900 text-center">
   <div class="font-display font-black uppercase text-white tracking-tight text-xl">Top Barber <span class="font-script normal-case text-gold-400 text-2xl font-normal">Margo</span></div>
   <p class="mt-2 text-[11px] uppercase tracking-[.25em] text-zinc-600">Details make perfection • Крымск</p>
   <!-- Соцсети в футере -->
   <div class="mt-5 flex justify-center gap-3">
     <a href="https://t.me/miss0771" target="_blank" rel="noopener" aria-label="Telegram" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="send" class="w-4 h-4"></i></a>
-    <a href="https://www.instagram.com/spislaadko__" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="instagram" class="w-4 h-4"></i></a>
     <a href="tel:+79183942877" aria-label="Позвонить" class="w-9 h-9 grid place-items-center rounded-full bg-black/40 border border-zinc-700 text-gold-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150"><i data-lucide="phone" class="w-4 h-4"></i></a>
+  </div>
+
+  <!-- ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (реквизиты исполнителя, ЗоЗПП) -->
+  <div class="mx-auto mt-9 max-w-md px-5">
+    <div class="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent"></div>
+    <address class="mt-6 not-italic text-[11px] leading-relaxed text-zinc-500 space-y-1">
+      <p>Самозанятая Теремязева Маргарита Сергеевна</p>
+      <p>ИНН 233707450131</p>
+      <p>г. Крымск, Краснодарский край</p>
+    </address>
+    <button type="button" id="privacyOpen" class="mt-4 text-[11px] leading-relaxed text-zinc-400 underline underline-offset-4 decoration-zinc-700 hover:text-gold-300 hover:decoration-gold-400/70 transition-colors duration-200">Политика конфиденциальности и обработки персональных данных</button>
+    <p class="mt-5 text-[11px] text-zinc-600">© 2026 Top Barber. Все права защищены.</p>
   </div>
 </footer>
 
@@ -890,6 +898,82 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
 })();
 
 if (window.lucide) lucide.createIcons();
+
 </script>
+<script>
+// ---- Политика конфиденциальности: открыть / закрыть ----
+function initPrivacy(){
+  var m=document.getElementById('privacyModal'),panel=document.getElementById('privacyPanel'),openBtn=document.getElementById('privacyOpen');
+  if(!m||!openBtn) return;
+  var last=null,timer=null;
+  function open(){
+    last=document.activeElement; clearTimeout(timer);
+    m.classList.remove('hidden'); m.classList.add('flex');
+    document.documentElement.style.overflow='hidden';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){m.style.opacity='1';panel.style.transform='none';});});
+    var c=m.querySelector('[data-privacy-close]'); if(c) c.focus();
+  }
+  function close(){
+    m.style.opacity='0'; panel.style.transform='translateY(16px)';
+    timer=setTimeout(function(){m.classList.add('hidden');m.classList.remove('flex');document.documentElement.style.overflow='';},250);
+    if(last&&last.focus) last.focus();
+  }
+  openBtn.addEventListener('click',open);
+  m.querySelectorAll('[data-privacy-close]').forEach(function(b){b.addEventListener('click',close);});
+  document.getElementById('privacyBackdrop').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.classList.contains('hidden'))close();});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initPrivacy);else initPrivacy();
+</script>
+
+<!-- ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (152-ФЗ): модальное окно -->
+<div id="privacyModal" class="fixed inset-0 z-[100] hidden items-end sm:items-center justify-center p-0 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" style="opacity:0;transition:opacity .25s ease">
+  <div id="privacyBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+  <div id="privacyPanel" class="relative flex w-full max-w-lg max-h-[88vh] flex-col rounded-t-3xl sm:rounded-3xl border border-zinc-800 bg-zinc-950 shadow-[0_30px_80px_rgba(0,0,0,.6)]" style="transform:translateY(16px);transition:transform .3s ease">
+    <div class="flex items-start justify-between gap-4 px-6 pt-6 pb-4 border-b border-zinc-900">
+      <div>
+        <p class="text-[10px] uppercase tracking-[.35em] text-gold-400">Документ</p>
+        <h2 id="privacyTitle" class="mt-2 font-display font-black uppercase tracking-tight text-white text-xl leading-tight">Политика конфиденциальности</h2>
+      </div>
+      <button type="button" data-privacy-close aria-label="Закрыть" class="shrink-0 w-9 h-9 grid place-items-center rounded-full border border-zinc-700 text-zinc-400 hover:border-gold-400/70 hover:text-gold-300 active:scale-95 transition duration-150">
+        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="overflow-y-auto overscroll-contain px-6 py-5 text-[13px] leading-relaxed text-zinc-400 space-y-4" style="-webkit-overflow-scrolling:touch">
+      <p>Настоящая политика определяет порядок обработки и защиты персональных данных пользователей сайта в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+      <div>
+        <h3 class="text-white font-semibold">1. Оператор</h3>
+        <p class="mt-1">Оператор персональных данных: самозанятая Теремязева Маргарита Сергеевна, ИНН 233707450131, г. Крымск, Краснодарский край. Связь с оператором: +7 (918) 394-28-77, Telegram @miss0771.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">2. Какие данные собираются</h3>
+        <p class="mt-1">Только те, которые вы сообщаете сами при записи: имя и номер телефона. Иные данные не запрашиваются.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">3. Цель обработки</h3>
+        <p class="mt-1">Имя и телефон используются исключительно для подтверждения онлайн-записи и связи с вами по вопросам услуги (уточнение времени, перенос или отмена записи). Рекламные рассылки не производятся.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">4. Передача третьим лицам</h3>
+        <p class="mt-1">Оператор не распространяет и не передаёт ваши данные третьим лицам, за исключением случаев, предусмотренных законодательством РФ. Запись через сервис Dikidi и обращение через Telegram осуществляются по правилам этих сервисов.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">5. Срок хранения</h3>
+        <p class="mt-1">Данные хранятся не дольше, чем это необходимо для достижения цели обработки, и удаляются по вашему требованию.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">6. Ваши права</h3>
+        <p class="mt-1">Вы вправе запросить сведения о своих данных, их уточнение, блокирование или удаление, а также отозвать согласие на обработку. Для этого свяжитесь с оператором по контактам из раздела 1.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold">7. Согласие</h3>
+        <p class="mt-1">Оставляя имя и телефон для записи, вы соглашаетесь с обработкой персональных данных на условиях настоящей политики.</p>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-900" style="padding-bottom:max(1rem, env(safe-area-inset-bottom))">
+      <button type="button" data-privacy-close class="relative overflow-hidden w-full rounded-2xl bg-gradient-to-r from-gold-500 via-gold-400 to-gold-300 text-black font-display font-bold uppercase tracking-widest text-sm py-3.5 active:scale-95 transition-transform duration-150">Понятно</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
